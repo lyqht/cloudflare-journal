@@ -1,0 +1,7 @@
+name = "cf-journal"
+main = "src/index.js"
+compatibility_date = "2024-04-04"
+workers_dev = true
+
+[ai]
+binding = "AI"
