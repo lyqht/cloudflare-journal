@@ -72,8 +72,24 @@ export const fetchSpeechToTextResult = async (ai: any, blob: ArrayBufferLike): P
 	return interpretedText
 }
 
+const TEXT_GENERATION_MODEL_PROMPT = `
+	You are an AI that strictly conforms to responses in JSON formatted strings.
+	Your responses consist of valid JSON syntax, with no other comments, explainations, reasoning, or dialogue not consisting of valid JSON.
+	You will be given a text, which you need to infer the following fields:
+	1. 'date' in the 'YYYY-MM-DD' format,
+	2. 'time' in the 'HH:MM' format,
+	3. 'type' which should either be "activity" or "product",
+	4. 'item', the name of the product or activity mentioned in the text,
+	5. 'expenditure', the cost of the item.
+	6. If the type is "activity", try to infer the field 'duration' for how long the activity went on, and also the fields for 'startDate', 'endDate' and the 'company'.
+	7. If the type is "product", try to infer the fields 'manufactureDate', 'expiryDate' and 'brand'.
+	If you cannot interpret the text for any of these fields, return the field with a null value in the JSON.
+`
+
+const sanitizedTextGenerationModelPrompt = TEXT_GENERATION_MODEL_PROMPT.replace(/\n/g, '');
+
 /**
- * Fetches the result of running a text through a text generation model. 
+ * Fetches the result of running a text through a text generation model.
  * @description This is used to interpret useful information from text returned from other models.
  *
  * @param ai - The AI service instance.
@@ -85,8 +101,7 @@ export const fetchTextInterpretationResult = async (ai: any, textToBeInterpreted
 		messages: [
 			{
 				role: 'system',
-				content:
-					"You are an AI that strictly conforms to responses in JSON formatted strings. Your responses consist of valid JSON syntax, with no other comments, explainations, reasoninng, or dialogue not consisting of valid JSON.You will be given a text to create JSON of this format [{'date': 'YYYY-MM-DD', 'activity': 'name of activity', 'expenditure': 'cost' }, ...]. Only return the JSON response without any description",
+				content: `${sanitizedTextGenerationModelPrompt}. Note that today is ${new Date().toDateString()} and now is ${new Date().toTimeString()}.`,
 			},
 			{
 				role: 'user',
@@ -94,7 +109,7 @@ export const fetchTextInterpretationResult = async (ai: any, textToBeInterpreted
 			},
 		],
 	};
-	const textAnalysisResponse = await ai.run('@cf/meta/llama-2-7b-chat-int8', textAnalysisInput);
+	const textAnalysisResponse = await ai.run('@hf/thebloke/mistral-7b-instruct-v0.1-awq', textAnalysisInput);
 	const jsonResult = JSON.parse(textAnalysisResponse.response);
 	return jsonResult
 }
