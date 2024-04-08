@@ -14,9 +14,7 @@ export async function readRequestBody(request: Request) {
 
 	if (contentType.includes('application/json')) {
 		return JSON.stringify(await request.json());
-	} else if (contentType.includes('application/text')) {
-		return request.text();
-	} else if (contentType.includes('text/html')) {
+	} else if (contentType.includes('application/text') || contentType.includes('text/html') || contentType.includes('text/plain')) {
 		return request.text();
 	} else if (contentType.includes('form')) {
 		const formData = await request.formData();
