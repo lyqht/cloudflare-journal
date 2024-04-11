@@ -2,9 +2,11 @@
 
 This project is a **Cloudflare severless worker** with an AI service binding deployed for processing either audio, image or text submitted by users into semantic useful information, especially in the context for _submitting expenses_.
 
+For users that prefer a UI, a simple NextJS web app is created to demonstrate how to upload files and make a POST reques to the Cloudflare worker endpoint.
+
 ## How it works
 
-![](./demo/How%20it%20works.png)
+![An image of a green tea bottle is inputted into an "image-to-text" system which describes the bottle and its features. The description is then converted into a structured JSON format with fields like "date," "type," "brand," and "item," most of which are left null except for "type," which is "product," and "item," which is "Green Tea." An audio clip is transcribed by an "audio-to-text" system, with the spoken words "I went to the gym for an hour today. The session cost around 20 dollars." This transcription is then converted into JSON format with fields such as "date," "time," "type," "item," "expenditure," and others, some filled with specific data from the audio input like "type" as "activity," "item" as "gym session," and "expenditure" as 20. A text input reading "2 weeks ago, I went to eat a buffet at Swensens Unlimited at the T2 airport, it's really nice but it costs like $36 per person after GST, and there were 2 of us." is converted directly into a JSON format with details of the dining experience including "date," "time," "type," "item," and "expenditure," among others. The "item" is listed as "Swensens Unlimited," and "expenditure" is doubled to 72, considering two people](./demo/How%20it%20works.png)
 
 ## Models used
 
