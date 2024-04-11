@@ -44,6 +44,10 @@ curl --location 'https://cf-journal.senchatea.workers.dev?type=image' \
 --data '@postman-cloud:///1eef4b68-e5d7-49e0-a28d-f60b3bd7d70e'
 ```
 
+## Try it in the web app!
+
+![](./demo/web_demo.gif)
+
 ## Resources
 
 These are some resources from Cloudflare that I read up to work on this project.
