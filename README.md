@@ -1,8 +1,8 @@
 ## Introduction
 
-This project is a **Cloudflare severless worker** with an AI service binding deployed for processing either audio, image or text submitted by users into semantic useful information, especially in the context for _submitting expenses_.
+This project is a **Cloudflare serverless worker** with an AI service binding deployed for processing either audio, image or text submitted by users into semantic useful information, especially in the context for _submitting expenses_.
 
-For users that prefer a UI, a simple NextJS web app is created to demonstrate how to upload files and make a POST reques to the Cloudflare worker endpoint.
+For users that prefer a UI, a simple **NextJS web app** is created to demonstrate how to upload files and utilizes API routes to make a POST request to the Cloudflare worker endpoint.
 
 ## How it works
 
